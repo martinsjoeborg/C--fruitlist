@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "B:\\Private_projects\\C#\\pre-studies-assignments\\advanced-exercise\\advanced-exercise.csproj": {}
+    "B:\\Private_projects\\C#\\CS-fruitlist\\advanced-exercise.csproj": {}
   },
   "projects": {
-    "B:\\Private_projects\\C#\\pre-studies-assignments\\advanced-exercise\\advanced-exercise.csproj": {
+    "B:\\Private_projects\\C#\\CS-fruitlist\\advanced-exercise.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "B:\\Private_projects\\C#\\pre-studies-assignments\\advanced-exercise\\advanced-exercise.csproj",
+        "projectUniqueName": "B:\\Private_projects\\C#\\CS-fruitlist\\advanced-exercise.csproj",
         "projectName": "advanced-exercise",
-        "projectPath": "B:\\Private_projects\\C#\\pre-studies-assignments\\advanced-exercise\\advanced-exercise.csproj",
+        "projectPath": "B:\\Private_projects\\C#\\CS-fruitlist\\advanced-exercise.csproj",
         "packagesPath": "C:\\Users\\marti\\.nuget\\packages\\",
-        "outputPath": "B:\\Private_projects\\C#\\pre-studies-assignments\\advanced-exercise\\obj\\",
+        "outputPath": "B:\\Private_projects\\C#\\CS-fruitlist\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\marti\\AppData\\Roaming\\NuGet\\NuGet.Config",
