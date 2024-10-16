@@ -1,4 +1,7 @@
-﻿
+﻿string filePath = "./saved-fruits.cvs";
+//Creates a dictionary variable that stores a key and value object
+var fruits = new Dictionary<string, decimal>();
+
 //Gets the allowed fruits from .txt file and stores it in a string variable
 string allowedFruits = File.ReadAllText("./allowed-fruits.txt");
 //Remove the empty lines in the string and stores in an array of strings
@@ -9,8 +12,6 @@ for(int i = 0; i < cleanAllowedFruits.Length; i++)
     cleanAllowedFruits[i] = cleanAllowedFruits[i].Trim();
 }
 
-//Creates a dictionary variable that stores a key and value object
-var fruits = new Dictionary<string, decimal>();
 //Starting message
 Console.WriteLine("");
 Console.WriteLine("Welcome to the fruit app!");
@@ -20,6 +21,8 @@ foreach(string fruit in cleanAllowedFruits)
 {
     Console.WriteLine(fruit);
 }
+Console.WriteLine("");
+Console.WriteLine("If you want to start from where you left off, type 'continue'. ");
 Console.WriteLine("");
 
 //Main loop logic
@@ -32,6 +35,17 @@ while (true)
     if (newFruit.Equals("done", StringComparison.OrdinalIgnoreCase))
     {
         break;
+    }
+
+    if (newFruit.Equals("continue", StringComparison.OrdinalIgnoreCase))
+    {
+        fruits = getSavedFruits(filePath);
+        Console.WriteLine("Your saved fruits");
+        foreach(var fruit in fruits)
+        {
+            Console.WriteLine($"{fruit.Key}, {fruit.Value}");
+        }
+        continue;
     }
 
     //Checks if newFruit is in the cleanAllowedFruits array, if not, shows message and goes back to enter another fruit
@@ -82,4 +96,36 @@ if (fruits.Count > 0)
 else
 {
     Console.WriteLine("No fruits were entered :(");
+}
+
+//Gets saved fruits and returns the dictionary to the main fruits dictionary
+static Dictionary<string, decimal> getSavedFruits(string filePath)
+{
+    using var reader = new StreamReader(filePath);
+    var savedFruits = new Dictionary<string, decimal>();
+
+    string[] lines = File.ReadAllLines(filePath);
+
+    foreach (string line in lines)
+    {
+        string[] parts = line.Split(',');
+        string fruitName = parts[0].Trim();
+        decimal fruitPrice = decimal.Parse(parts[1].Trim());
+        savedFruits[fruitName] = fruitPrice;
+    }
+    return savedFruits;
+}
+
+//To Do: make sure it doesn't add existing fruits in saved-fruits + be able to delete fruits
+using (var writer = new StreamWriter(filePath, append:true))
+{
+    if(!File.Exists(filePath))
+    {
+        writer.WriteLine();
+    }
+
+    foreach(var fruit in fruits)
+    {
+        writer.WriteLine($"{fruit.Key}, {fruit.Value}");
+    }
 }
