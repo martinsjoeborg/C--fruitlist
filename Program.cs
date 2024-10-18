@@ -140,9 +140,7 @@ static void saveFruits(string filePath, Dictionary<string, decimal> fruits)
 
     foreach (var fruit in fruits)
     {
-        string key = fruit.Key;
-        
-        if(!tempFruitList.ContainsKey(key))
+        if(!tempFruitList.ContainsKey(fruit.Key))
         {
             writer.WriteLine($"{fruit.Key}, {fruit.Value}");
         }
