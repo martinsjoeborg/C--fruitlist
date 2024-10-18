@@ -28,7 +28,7 @@ Console.WriteLine("");
 //Main loop logic
 while (true)
 {
-    Console.Write("Enter a fruit (or 'done' to finish): ");
+    Console.Write("Enter a fruit (or 'done' to finish or 'save' to save your fruits): ");
     string newFruit = Console.ReadLine()!.Trim().ToLower(); //Takes input, trim whitespace, sets all characters to lowercase & stores in variable
 
     //If user types "done", breaks the main loop
@@ -37,10 +37,20 @@ while (true)
         break;
     }
 
+    if (newFruit.Equals("save", StringComparison.OrdinalIgnoreCase))
+    {
+        saveFruits(filePath, fruits);
+        if(fruits.Count > 0)
+        {
+            Console.WriteLine("Your fruits has been saved.");
+        }
+        break;
+    }
+
     if (newFruit.Equals("continue", StringComparison.OrdinalIgnoreCase))
     {
         fruits = getSavedFruits(filePath);
-        Console.WriteLine("Your saved fruits");
+        Console.WriteLine("Your saved fruits:");
         foreach(var fruit in fruits)
         {
             Console.WriteLine($"{fruit.Key}, {fruit.Value}");
@@ -116,16 +126,25 @@ static Dictionary<string, decimal> getSavedFruits(string filePath)
     return savedFruits;
 }
 
-//To Do: make sure it doesn't add existing fruits in saved-fruits + be able to delete fruits
-using (var writer = new StreamWriter(filePath, append:true))
+//To Do: make sure it doesn't add existing fruits in saved-fruits.cvs
+
+static void saveFruits(string filePath, Dictionary<string, decimal> fruits)
 {
-    if(!File.Exists(filePath))
+    var tempFruitList = getSavedFruits(filePath);
+
+    using var writer = new StreamWriter(filePath, append: true);
+    if (!File.Exists(filePath))
     {
         writer.WriteLine();
     }
 
-    foreach(var fruit in fruits)
+    foreach (var fruit in fruits)
     {
-        writer.WriteLine($"{fruit.Key}, {fruit.Value}");
+        string key = fruit.Key;
+        
+        if(!tempFruitList.ContainsKey(key))
+        {
+            writer.WriteLine($"{fruit.Key}, {fruit.Value}");
+        }
     }
 }
